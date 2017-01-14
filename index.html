@@ -1,0 +1,139 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Can | HTML 5 Validation poc</title>
+</head>
+<body>
+  
+  <!--form main template-->
+  <script type='text/stache' id='form-template'>
+
+   {{#eq page 'index'}}
+     <h1> Simple registration</h1>
+
+      <form onsubmit="return false;" autocomplete= "off" name="customerComplainForm">
+
+       <input:field 
+         {label-text}='firstNameLabel'
+         {(input-value)}= '{firstName}'
+         {is-required}= 'isFirstNameRequired'
+       />
+
+       <input:field 
+         {label-text}='lastNameLabel'
+         {(input-value)}= '{lastName}'
+         {is-required}= 'isLastNameRequired'
+       />
+       
+       <input:field 
+         {label-text}='emailLabel'
+         {(input-value)}= '{email}'
+         {input-type}= 'emailType'
+         {pattern}= 'emailPattern'
+         {is-required}= 'isLastNameRequired'
+       />
+
+       <input:field 
+         {label-text}='ageLabel'
+         {input-type}= 'ageType'
+         {(input-value)}= '{age}'
+         {min-value}= 'minmumAge'
+         {max-value}= 'maximumAge'
+         {is-required}= 'isAgeRequired'
+       />
+
+       Sex group
+       <input:field
+         {label-text}='maleText'
+         {show-label}='maleShowLabel'
+         {input-type}= 'maleInputType'
+         {input-name}='sexGroupName'
+         {(input-value)}= '{male}'
+         {is-required}= 'isSexGroupRequired'
+       />
+
+       <input:field
+         {label-text}='femaleText'
+         {show-label}='femaleShowLabel'
+         {input-type}= 'femaleInputType'
+         {input-name}='sexGroupName'
+         {(input-value)}= '{female}'
+         {is-required}= 'isSexGroupRequired'
+       />
+
+
+       <p>
+         <button ($click) = 'submitForm()'>Submit</button>
+       </p>
+       
+      </form>
+
+   {{else}}
+   
+      <salutation:text {welcome-text}='{welcomeText}' />
+
+      A confirmation mail sent to {{email}}
+      <p>
+        Your age is: {{age}}
+      </p>
+
+   {{/eq}}
+
+  </script>
+
+  <!-- Input field component-->
+  <script type='text/stache' id='input-field'>
+
+    <p>
+      {{#unless showLabel}}
+        <label for="{{toCamelCase labelText}}">{{labelText}}</label>
+      {{/unless}}
+      
+      <br />
+      
+      <input
+        id='{{toCamelCase labelText}}'
+
+        {{#if inputType}} 
+          type='{{inputType}}'
+        {{/if}}
+        
+        {{#if inputName}} 
+          name='{{inputName}}'
+        {{/if}}
+        
+        {{#if pattern}}
+          pattern= '{{pattern}}'
+        {{/if}}
+        
+        {{#if minValue}} 
+          min='{{minValue}}'
+        {{/if}}
+        
+        {{#if maxValue}} 
+          max='{{maxValue}}'
+        {{/if}}
+
+        value='{{inputValue}}'
+        ($input)='update($element.value)'
+
+        {{#if isRequired}} 
+          required
+        {{/if}}
+        
+       />
+       
+        {{#if showLabel}}
+          <label for="{{toCamelCase labelText}}">{{labelText}}</label>
+        {{/if}}
+    </p>
+
+  </script>
+
+  <script src="src/jquery-2.2.4.js"></script>
+  <script src="src/can-3.4.0.js"></script>
+  <script src="src/main.js"></script>
+
+</body>
+</html>
