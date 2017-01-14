@@ -43,7 +43,8 @@ const template = can.stache.from('form-template'),
           serialize: false
         },
         emailPattern: {
-          value: "\\S+@\\S+\\.\\S+"
+          value: "\\S+@\\S+\\.\\S+",
+          serialize: false
         },
         isEmailRequired: {
           value: true,
